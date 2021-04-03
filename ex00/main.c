@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcalazan <gcalazan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgoncalv <lgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 12:52:22 by gcalazan          #+#    #+#             */
-/*   Updated: 2021/04/03 17:19:08 by gcalazan         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:35:30 by lgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void    rush(int x, int y);
+void	rush(int x, int y);
 
-int     main(void)
+int		main(void)
 {
-    rush(4, 4);
-    return (0);
+	rush(5, 5);
+	return (0);
 }

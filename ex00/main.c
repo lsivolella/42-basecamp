@@ -6,7 +6,7 @@
 /*   By: gcalazan <gcalazan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 12:52:22 by gcalazan          #+#    #+#             */
-/*   Updated: 2021/04/03 14:34:33 by gcalazan         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:19:08 by gcalazan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@ void    rush(int x, int y);
 
 int     main(void)
 {
-    rush(5, 1);
+    rush(4, 4);
     return (0);
 }

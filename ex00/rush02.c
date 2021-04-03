@@ -6,7 +6,7 @@
 /*   By: gcalazan <gcalazan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 13:09:12 by gcalazan          #+#    #+#             */
-/*   Updated: 2021/04/03 14:50:38 by gcalazan         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:09:10 by gcalazan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@ void    ft_putchar(char c);
 
 void    rush(int x, int y)
 {
-    int i;
-    int j;
+    int i; /* COLUNA X */
+    int j; /* LINHA Y */
     
     i = 1;
     j = 1;
@@ -23,25 +23,25 @@ void    rush(int x, int y)
     {
         while (i <= x)
         {
-            if ((i == 1 && j == 1) || (i == x && j == 1))
+            if ((i == 1 || i == x) && j == 1)
             {
-                ft_putchar('A');
+                ft_putchar('A'); /* (SE 1 COLUNA OU ULTIMA COLUNA) E PRIMEIRA LINHA COLOCAR A */
             }
-            if ((i == 1 || i == x) && (j >= 2 && j < y))
+            else if ((i > 1 && i < x) && (j == 1 || j == y))
             {
-                ft_putchar('B');
+                ft_putchar('B'); /* (SE ENTRE A PRIMEIRA E A ULTIMA COLUNA) E (PRIMEIRA LINHA OU ULTIMA LINHA) COLAR B*/
             }
-            if ((i >= 2 && i < x) && (j == 1 || j == y))
+            else if ((i == 1 || i == x) && j == y)
             {
-                ft_putchar('B');
+                ft_putchar('C'); /* (SE ESTIVER NA PRIMEIRA COLUNA OU NA SEGUNDA COLUNA) E SE ESTIVER NA ULTIMA LINHA COLOCAR C*/
             }
-            if ((i > 1 && i < x) && (j > 1 && j < y))
+            else if ((i == 1 || i == x) && (j > 1 && j < y))
             {
-                ft_putchar(' ');
+                ft_putchar('B'); /* (SE ESTIVER NA PRIMEIRA OU ULTIMA COLUNA) E (ENTRE A SEGUNDA LINHA OU NA PENUTIMA LINHA) COLOCAR B */
             }
-            if ((j == 1 && i == x) || (j == y && i == x))
+            else if ((i != 1 && i != x) && (j > 1 && j < y))
             {
-                ft_putchar('C');
+                ft_putchar(' ');  /* (SE DIFERENTE DE 1 E DIFERENTE DE X) E (SE ESTIVER ENTRE A SEGUNDA LINHA E A PENUTIMA) COLOCAR ESPACO*/
             }
             i++;
         }

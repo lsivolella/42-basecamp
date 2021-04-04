@@ -5,32 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgoncalv <lgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/03 13:09:12 by gcalazan          #+#    #+#             */
-/*   Updated: 2021/04/04 13:07:27 by lgoncalv         ###   ########.fr       */
+/*   Created: 2021/04/04 13:54:06 by lgoncalv          #+#    #+#             */
+/*   Updated: 2021/04/04 13:54:54 by lgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_putchar(char c);
-
-void	printretangulo(int i, int j, int x, int y)
-{
-	if ((i == 1 || i == x) && (j == 1 || j == y))
-	{
-		ft_putchar('o');
-	}
-	else if ((i > 1 && i < x) && (j == 1 || j == y))
-	{
-		ft_putchar('-');
-	}
-	else if ((i == 1 || i == x) && (j > 1 && j < y))
-	{
-		ft_putchar('|');
-	}
-	else if ((i != 1 && i != x) && (j > 1 && j < y))
-	{
-		ft_putchar(' ');
-	}
-}
 
 void	rush(int x, int y)
 {
@@ -43,7 +23,14 @@ void	rush(int x, int y)
 	{
 		while (i <= x)
 		{
-			printretangulo(i, j, x, y);
+			if ((i == 1 || i == x) && (j == 1 || j == y))
+				ft_putchar('o');
+			else if ((i > 1 && i < x) && (j == 1 || j == y))
+				ft_putchar('-');
+			else if ((i == 1 || i == x) && (j > 1 && j < y))
+				ft_putchar('|');
+			else if ((i != 1 && i != x) && (j > 1 && j < y))
+				ft_putchar(' ');
 			i++;
 		}
 		i = 1;

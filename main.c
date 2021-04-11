@@ -6,7 +6,7 @@
 /*   By: lgoncalv <lgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 14:31:05 by lgoncalv          #+#    #+#             */
-/*   Updated: 2021/04/11 16:25:43 by lgoncalv         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:11:30 by lgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int main(int argc, char* argv[])
 	j = 0;
 	while (j < 6)
 	{
-		printf("Index from main: %d\n", index);
 		ft_cross_check_matrix(cells, index);
 		index += 4;
 		j++;
@@ -183,12 +182,15 @@ int ft_cell_not_solved(int *cells, int index)
 
 	possibilidade = 0;
 	i = 0;
+	if (index == 52)
+	{
+		// o index 52 não está sendo checado aqui... porque?
+		printf("\n\ntest\n\n");
+	}
 	while(i < 4)
 	{
 		if (cells[index] != 0)
 			possibilidade++;
-		printf("Index: %d\n", index);
-		printf("Possi: %d\n", possibilidade);
 		index++;
 		i++;
 	}

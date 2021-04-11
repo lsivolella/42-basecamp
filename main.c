@@ -6,7 +6,7 @@
 /*   By: lgoncalv <lgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 14:31:05 by lgoncalv          #+#    #+#             */
-/*   Updated: 2021/04/11 14:47:50 by lgoncalv         ###   ########.fr       */
+/*   Updated: 2021/04/11 16:25:43 by lgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ int main(int argc, char* argv[])
 	ft_print_matrix(cells);
 	printf("----------------------------------------------------------------\n");
 	j = 0;
-	printf("test");
 	while (j < 6)
 	{
+		printf("Index from main: %d\n", index);
 		ft_cross_check_matrix(cells, index);
 		index += 4;
 		j++;
@@ -187,6 +187,8 @@ int ft_cell_not_solved(int *cells, int index)
 	{
 		if (cells[index] != 0)
 			possibilidade++;
+		printf("Index: %d\n", index);
+		printf("Possi: %d\n", possibilidade);
 		index++;
 		i++;
 	}
@@ -212,7 +214,7 @@ void ft_cross_check_matrix(int *cells, int index)
 			ft_cross_check_cell5(cells, index);
 		else if (index == 20)
 			ft_cross_check_cell6(cells, index);
-		/*
+			/*
 		else if (index == 24)
 			ft_cross_check_cell7(cells, index);
 		else if (index == 28)
@@ -239,278 +241,36 @@ void ft_cross_check_matrix(int *cells, int index)
 
 void ft_cross_check_cell1(int *cells, int index)
 {
-	int startingindex;
-
-	startingindex = index - 3;
-	ft_cc_first_columns(cells, startingindex);
-	ft_cc_first_lines(cells, startingindex);
+	ft_cc_first_columns(cells, index);
+	ft_cc_first_lines(cells, index);
 }
 
 void ft_cross_check_cell2(int *cells, int index)
 {
-	int startingindex;
-
-	startingindex = index - 3;
-	ft_cc_second_columns(cells, startingindex);
-	ft_cc_first_lines(cells, startingindex);
+	ft_cc_second_columns(cells, index);
+	ft_cc_first_lines(cells, index);
 }
 
 void ft_cross_check_cell3(int *cells, int index)
 {
-	int startingindex;
-
-	startingindex = index - 3;
-	ft_cc_third_columns(cells, startingindex);
-	ft_cc_first_lines(cells, startingindex);
+	ft_cc_third_columns(cells, index);
+	ft_cc_first_lines(cells, index);
 }
 
 void ft_cross_check_cell4(int *cells, int index)
 {
-	int startingindex;
-
-	startingindex = index - 3;
-	ft_cc_fourth_columns(cells, startingindex);
-	ft_cc_first_lines(cells, startingindex);
+	ft_cc_fourth_columns(cells, index);
+	ft_cc_first_lines(cells, index);
 }
 
 void ft_cross_check_cell5(int *cells, int index)
 {
-	int startingindex;
-
-	startingindex = index - 3;
-	ft_cc_first_columns(cells, startingindex);
-	ft_cc_second_lines(cells, startingindex);
+	ft_cc_first_columns(cells, index);
+	ft_cc_second_lines(cells, index);
 }
 
 void ft_cross_check_cell6(int *cells, int index)
 {
-	int startingindex;
-
-	startingindex = index - 3;
-	ft_cc_second_columns(cells, startingindex);
-	ft_cc_second_lines(cells, startingindex);
-}
-
-void ft_cc_first_columns(int *cells, int startingindex)
-{
-	int i;
-	int j;
-	int index;
-
-	i = 1;
-	// 3 columns to the right
-	while (i < 4)
-	{
-		j = 0;
-		index = startingindex;
-		while (j < 4)
-		{
-			if (ft_cell_not_solved(cells, cells[index + (i * 4)] - j))
-				break ;
-			else if (cells[index + (i * 4)] != 0)
-				cells[index] = 0;
-			index++;
-			j++;
-		}
-		i++;
-	}
-}
-
-void ft_cc_second_columns(int *cells, int startingindex)
-{
-	int i;
-	int j;
-	int index;
-
-	i = 1;
-	// 3 columns to the right
-	while (i < 4)
-	{
-		j = 0;
-		index = startingindex;
-		while (j < 4)
-		{
-			if (i == 1)
-				i *= -1;
-			if (ft_cell_not_solved(cells, cells[index + (i * 4)] - j))
-				break ;
-			else if (cells[index + (i * 4)] != 0)
-				cells[index] = 0;
-			if (i < 0)
-				i *= -1;
-			index++;
-			j++;
-		}
-		i++;
-	}
-}
-
-void ft_cc_third_columns(int *cells, int startingindex)
-{
-	int i;
-	int j;
-	int index;
-
-	i = 1;
-	// 3 columns to the right
-	while (i < 4)
-	{
-		j = 0;
-		index = startingindex;
-		while (j < 4)
-		{
-			if (i == 1 || i == 2)
-				i *= -1;
-			if (ft_cell_not_solved(cells, cells[index + (i * 4)] - j))
-				break ;
-			else if (cells[index + (i * 4)] != 0)
-				cells[index] = 0;
-			if (i < 0)
-				i *= -1;
-			index++;
-			j++;
-		}
-		i++;
-	}
-}
-
-void ft_cc_fourth_columns(int *cells, int startingindex)
-{
-	int i;
-	int j;
-	int index;
-
-	i = 1;
-	// 3 columns to the right
-	while (i < 4)
-	{
-		j = 0;
-		index = startingindex;
-		while (j < 4)
-		{
-			if (i == 1 || i == 2 || i == 3)
-				i *= -1;
-			if (ft_cell_not_solved(cells, cells[index + (i * 4)] - j))
-				break ;
-			else if (cells[index + (i * 4)] != 0)
-				cells[index] = 0;
-			if (i < 0)
-				i *= -1;
-			index++;
-			j++;
-		}
-		i++;
-	}
-}
-
-void ft_cc_first_lines(int *cells, int startingindex)
-{
-	int i;
-	int j;
-	int index;
-
-	// 3 columns to the botom
-	i = 1;
-	while (i < 4)
-	{
-		j = 0;
-		index = startingindex;
-		while (j < 4)
-		{
-			if (ft_cell_not_solved(cells, cells[index + (i * 16)] - j))
-				break ;
-			else if (cells[index + (i * 16)] != 0)
-				cells[index] = 0;
-			index++;
-			j++;
-		}
-		i++;
-	}
-}
-
-void ft_cc_second_lines(int *cells, int startingindex)
-{
-	int i;
-	int j;
-	int index;
-
-	// 3 columns to the botom
-	i = 1;
-	while (i < 4)
-	{
-		j = 0;
-		index = startingindex;
-		while (j < 4)
-		{
-			if (i == 1)
-				i *= -1;
-			if (ft_cell_not_solved(cells, cells[index + (i * 16)] - j))
-				break ;
-			else if (cells[index + (i * 16)] != 0)
-				cells[index] = 0;
-			index++;
-			j++;
-			if (i < 0)
-				i *= -1;
-		}
-		i++;
-	}
-}
-
-void ft_cc_third_lines(int *cells, int startingindex)
-{
-	int i;
-	int j;
-	int index;
-
-	// 3 columns to the botom
-	i = 1;
-	while (i < 4)
-	{
-		j = 0;
-		index = startingindex;
-		while (j < 4)
-		{
-			if (i == 1 || i == 2)
-				i *= -1;
-			if (ft_cell_not_solved(cells, cells[index + (i * 16)] - j))
-				break ;
-			else if (cells[index + (i * 16)] != 0)
-				cells[index] = 0;
-			index++;
-			j++;
-			if (i < 0)
-				i *= -1;
-		}
-		i++;
-	}
-}
-
-void ft_cc_fourth_lines(int *cells, int startingindex)
-{
-	int i;
-	int j;
-	int index;
-
-	// 3 columns to the botom
-	i = 1;
-	while (i < 4)
-	{
-		j = 0;
-		index = startingindex;
-		while (j < 4)
-		{
-			if (i == 1 || i == 2 || i == 3)
-				i *= -1;
-			if (ft_cell_not_solved(cells, cells[index + (i * 16)] - j))
-				break ;
-			else if (cells[index + (i * 16)] != 0)
-				cells[index] = 0;
-			index++;
-			j++;
-			if (i < 0)
-				i *= -1;
-		}
-		i++;
-	}
+	ft_cc_second_columns(cells, index);
+	ft_cc_second_lines(cells, index);
 }

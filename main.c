@@ -6,18 +6,15 @@
 /*   By: lgoncalv <lgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 14:31:05 by lgoncalv          #+#    #+#             */
-/*   Updated: 2021/04/11 00:24:34 by lgoncalv         ###   ########.fr       */
+/*   Updated: 2021/04/11 14:47:50 by lgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "header.h"
 
-void ft_putchar(char c);
-void ft_print_matrix(int *cells);
-void ft_check_column_possibilities(char x, char y, int reference, int *cells);
-void ft_check_line_possibilities(char x, char y, int reference, int *cells);
 
 //int *cells;
 
@@ -25,20 +22,14 @@ int main(int argc, char* argv[])
 {
 	int i;
 	int j;
-	int m;
-	int n;
-	int o;
-	int p;
+	int index;
 	char *param;
 	char *pargv;
 	int *cells;
 
 	i = 0;
 	j = 0;
-	m = 0;
-	n = 0;
-	o = 0;
-	p = 0;
+	index = 0;
 	param = (char *)malloc(17);
 	cells = (int *)malloc(64 * 4);
 	pargv = argv[1];
@@ -76,6 +67,11 @@ int main(int argc, char* argv[])
 		}
 		param[i] = '\0';
 	}
+	else
+	{
+		printf("Error 4\n");
+		return (0);
+	}
 	for (i = 0; i < 16; i++)
 	{
 		printf("[%c], ", param[i]);
@@ -102,6 +98,17 @@ int main(int argc, char* argv[])
 		j++;
 	}
 	ft_print_matrix(cells);
+	printf("----------------------------------------------------------------\n");
+	j = 0;
+	printf("test");
+	while (j < 6)
+	{
+		ft_cross_check_matrix(cells, index);
+		index += 4;
+		j++;
+	}
+	ft_print_matrix(cells);
+	printf("----------------------------------------------------------------\n");
 	return (0);
 }
 
@@ -126,634 +133,384 @@ void ft_print_matrix(int *cells)
 			{
 				if (cells[counters[3]] != 100)
 				{
-					//ft_putchar(cells[counters[3]++] + '0');
-					//ft_putchar('/');
-					//counters[3]++;
-					printf("%d/", cells[counters[3]++]);
+					ft_putchar(cells[counters[3]++] + '0');
+					ft_putchar('/');
 				}
 			}
-			printf(",    ");
+			ft_putchar(',');
+			ft_putchar(' ');
 		}
-		printf("\n");
-		printf("\n");
+		ft_putchar('\n');
 	}
 }
 
-int ft_define_starting_index(int reference)
+int ft_define_column_starting_index(int reference)
 {
 	int index;
 
+	index = 0;
 	if (reference == 0)
-	{
-		// usar matrixcells[0] a matrixcells[3]
 		index = 0;
-	}
 	else if (reference == 1)
-	{
-		// usar matrixcells[4] a matrixcells[7]
 		index = 4;
-	}
 	else if (reference == 2)
-	{
-		// usar matrixcells[8] a matrixcells[11]
 		index = 8;
-	}
 	else if (reference == 3)
-	{
-		// usar matrixcells[12] a matrixcells[15]
 		index = 12;
-	}
 	return (index);
 }
 
-void ft_check_column_possibilities(char x, char y, int reference, int *cells)
+int ft_define_line_starting_index(int reference)
 {
 	int index;
 
-	index = ft_define_starting_index(reference);
-	if (x == '1')
+	index = 0;
+	if (reference == 0)
+		index = 0;
+	else if (reference == 1)
+		index = 16;
+	else if (reference == 2)
+		index = 32;
+	else if (reference == 3)
+		index = 48;
+	return (index);
+}
+
+int ft_cell_not_solved(int *cells, int index)
+{
+	int possibilidade;
+	int i;
+
+	possibilidade = 0;
+	i = 0;
+	while(i < 4)
 	{
-		// Chamar arquivo das possibilidades 1-x
-		if (y == '1')
-		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
-		}
-		else if (y == '2')
-		{
-			cells[index] = 0;
-			cells[index + 1] = 0;
-			cells[index + 2] = 0;
-			cells[index + 3] = 4;
-
-			// Matrix x, 2
-			cells[index + 16] = 1;
-			cells[index + 17] = 2;
-			cells[index + 18] = 0;
-			cells[index + 19] = 0;
-
-			// Matrix x, 3
-			cells[index + 32] = 1;
-			cells[index + 33] = 2;
-			cells[index + 34] = 0;
-			cells[index + 35] = 0;
-
-			// Matrix x, 4
-			cells[index + 48] = 0;
-			cells[index + 49] = 0;
-			cells[index + 50] = 3;
-			cells[index + 51] = 0;
-		}
-		else if (y == '3')
-		{
-			// Matrix x, 1
-			cells[index] = 0;
-			cells[index + 1] = 0;
-			cells[index + 2] = 0;
-			cells[index + 3] = 4;
-
-			// Matrix x, 2
-			cells[index + 16] = 1;
-			cells[index + 17] = 2;
-			cells[index + 18] = 3;
-			cells[index + 19] = 0;
-
-			// Matrix x, 3
-			cells[index + 32] = 1;
-			cells[index + 33] = 0;
-			cells[index + 34] = 3;
-			cells[index + 35] = 0;
-
-			// Matrix x, 4
-			cells[index + 48] = 1;
-			cells[index + 49] = 2;
-			cells[index + 50] = 0;
-			cells[index + 51] = 0;
-		}
-		else if (y == '4')
-		{
-			// Matrix x, 1
-			cells[index] = 0;
-			cells[index + 1] = 0;
-			cells[index + 2] = 0;
-			cells[index + 3] = 4;
-
-			// Matrix x, 2
-			cells[index + 16] = 0;
-			cells[index + 17] = 0;
-			cells[index + 18] = 3;
-			cells[index + 19] = 0;
-
-			// Matrix x, 3
-			cells[index + 32] = 0;
-			cells[index + 33] = 2;
-			cells[index + 34] = 0;
-			cells[index + 35] = 0;
-
-			// Matrix x, 4
-			cells[index + 48] = 1;
-			cells[index + 49] = 0;
-			cells[index + 50] = 0;
-			cells[index + 51] = 0;
-		}
+		if (cells[index] != 0)
+			possibilidade++;
+		index++;
+		i++;
 	}
-	else if (x == '2')
+	if (possibilidade > 1)
+		return (1);
+	else
+		return (0);
+}
+
+void ft_cross_check_matrix(int *cells, int index)
+{
+	if (ft_cell_not_solved(cells, index) != 0)
 	{
-		// Chamar arquivo das possibilidades 2-x
-		if (y == '1')
-		{
-			// Matrix x, 1
-			cells[index] = 0;
-			cells[index + 1] = 0;
-			cells[index + 2] = 3;
-			cells[index + 3] = 0;
-
-			// Matrix x, 2
-			cells[index + 16] = 1;
-			cells[index + 17] = 2;
-			cells[index + 18] = 0;
-			cells[index + 19] = 0;
-
-			// Matrix x, 3
-			cells[index + 32] = 1;
-			cells[index + 33] = 2;
-			cells[index + 34] = 0;
-			cells[index + 35] = 0;
-
-			// Matrix x, 4
-			cells[index + 48] = 0;
-			cells[index + 49] = 0;
-			cells[index + 50] = 0;
-			cells[index + 51] = 4;
-		}
-		else if (y == '2')
-		{
-			// Matrix x, 1
-			cells[index] = 1;
-			cells[index + 1] = 2;
-			cells[index + 2] = 3;
-			cells[index + 3] = 0;
-
-			// Matrix x, 2
-			cells[index + 16] = 1;
-			cells[index + 17] = 2;
-			cells[index + 18] = 0;
-			cells[index + 19] = 4;
-
-			// Matrix x, 3
-			cells[index + 32] = 1;
-			cells[index + 33] = 2;
-			cells[index + 34] = 0;
-			cells[index + 35] = 4;
-
-			// Matrix x, 4
-			cells[index + 48] = 1;
-			cells[index + 49] = 2;
-			cells[index + 50] = 3;
-			cells[index + 51] = 0;
-		}
-		else if (y == '3')
-		{
-			// Matrix 1, 1
-			cells[index] = 1;
-			cells[index + 1] = 2;
-			cells[index + 2] = 3;
-			cells[index + 3] = 0;
-
-			// Matrix 1, 2
-			cells[index + 16] = 0;
-			cells[index + 17] = 0;
-			cells[index + 18] = 0;
-			cells[index + 19] = 4;
-
-			// Matrix 1, 3
-			cells[index + 32] = 0;
-			cells[index + 33] = 2;
-			cells[index + 34] = 3;
-			cells[index + 35] = 0;
-
-			// Matrix 1, 4
-			cells[index + 48] = 1;
-			cells[index + 49] = 2;
-			cells[index + 50] = 0;
-			cells[index + 51] = 0;
-		}
-		else if (y == '4')
-		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
-		}
-	}
-	else if (x == '3')
-	{
-		// Chamar arquivo das possibilidades 3-x
-		if (y == '1')
-		{
-			// Matrix x, 1
-			cells[index] = 1;
-			cells[index + 1] = 2;
-			cells[index + 2] = 0;
-			cells[index + 3] = 0;
-
-			// Matrix x, 2
-			cells[index + 16] = 1;
-			cells[index + 17] = 0;
-			cells[index + 18] = 3;
-			cells[index + 19] = 0;
-
-			// Matrix x, 3
-			cells[index + 32] = 1;
-			cells[index + 33] = 2;
-			cells[index + 34] = 3;
-			cells[index + 35] = 0;
-
-			// Matrix x, 4
-			cells[index + 48] = 0;
-			cells[index + 49] = 0;
-			cells[index + 50] = 0;
-			cells[index + 51] = 4;
-		}
-		else if (y == '2')
-		{
-			// Matrix x, 1
-			cells[index] = 1;
-			cells[index + 1] = 2;
-			cells[index + 2] = 0;
-			cells[index + 3] = 0;
-
-			// Matrix x, 2
-			cells[index + 16] = 0;
-			cells[index + 17] = 2;
-			cells[index + 18] = 3;
-			cells[index + 19] = 0;
-
-			// Matrix x, 3
-			cells[index + 32] = 0;
-			cells[index + 33] = 0;
-			cells[index + 34] = 0;
-			cells[index + 35] = 4;
-
-			// Matrix x, 4
-			cells[index + 48] = 1;
-			cells[index + 49] = 2;
-			cells[index + 50] = 3;
-			cells[index + 51] = 0;
-		}
-		else if (y == '3')
-		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
-		}
-		else if (y == '4')
-		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
-		}
-	}
-	else if (x == '4')
-	{
-		// Chamar arquivo das possibilidades 4-x
-		if (y == '1')
-		{
-			// Matrix x, 1
-			cells[index] = 1;
-			cells[index + 1] = 0;
-			cells[index + 2] = 0;
-			cells[index + 3] = 0;
-
-			// Matrix x, 2
-			cells[index + 16] = 0;
-			cells[index + 17] = 2;
-			cells[index + 18] = 0;
-			cells[index + 19] = 0;
-
-			// Matrix x, 3
-			cells[index + 32] = 0;
-			cells[index + 33] = 0;
-			cells[index + 34] = 3;
-			cells[index + 35] = 0;
-
-			// Matrix x, 4
-			cells[index + 48] = 0;
-			cells[index + 49] = 0;
-			cells[index + 50] = 0;
-			cells[index + 51] = 4;
-		}
-		else if (y == '2')
-		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
-		}
-		else if (y == '3')
-		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
-		}
-		else if (y == '4')
-		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
-		}
+		if (index == 0)
+			ft_cross_check_cell1(cells, index);
+		else if (index == 4)
+			ft_cross_check_cell2(cells, index);
+		else if (index == 8)
+			ft_cross_check_cell3(cells, index);
+		else if (index == 12)
+			ft_cross_check_cell4(cells, index);
+		else if (index == 16)
+			ft_cross_check_cell5(cells, index);
+		else if (index == 20)
+			ft_cross_check_cell6(cells, index);
+		/*
+		else if (index == 24)
+			ft_cross_check_cell7(cells, index);
+		else if (index == 28)
+			ft_cross_check_cell8(cells, index);
+		else if (index == 32)
+			ft_cross_check_cell9(cells, index);
+		else if (index == 36)
+			ft_cross_check_cell10(cells, index);
+		else if (index == 40)
+			ft_cross_check_cell11(cells, index);
+		else if (index == 44)
+			ft_cross_check_cell12(cells, index);
+		else if (index == 48)
+			ft_cross_check_cell13(cells, index);
+		else if (index == 52)
+			ft_cross_check_cell14(cells, index);
+		else if (index == 56)
+			ft_cross_check_cell15(cells, index);
+		else if (index == 60)
+			ft_cross_check_cell16(cells, index);
+		*/
 	}
 }
 
-void ft_check_line_possibilities(char x, char y, int reference, int *cells)
+void ft_cross_check_cell1(int *cells, int index)
 {
-	//checar as possibilidades da combinaçao
-	//se uma posição possui o número zero, ela não pode receber outro número
-	//se a posição possui o número, ele pode ser sobrescrito
+	int startingindex;
+
+	startingindex = index - 3;
+	ft_cc_first_columns(cells, startingindex);
+	ft_cc_first_lines(cells, startingindex);
+}
+
+void ft_cross_check_cell2(int *cells, int index)
+{
+	int startingindex;
+
+	startingindex = index - 3;
+	ft_cc_second_columns(cells, startingindex);
+	ft_cc_first_lines(cells, startingindex);
+}
+
+void ft_cross_check_cell3(int *cells, int index)
+{
+	int startingindex;
+
+	startingindex = index - 3;
+	ft_cc_third_columns(cells, startingindex);
+	ft_cc_first_lines(cells, startingindex);
+}
+
+void ft_cross_check_cell4(int *cells, int index)
+{
+	int startingindex;
+
+	startingindex = index - 3;
+	ft_cc_fourth_columns(cells, startingindex);
+	ft_cc_first_lines(cells, startingindex);
+}
+
+void ft_cross_check_cell5(int *cells, int index)
+{
+	int startingindex;
+
+	startingindex = index - 3;
+	ft_cc_first_columns(cells, startingindex);
+	ft_cc_second_lines(cells, startingindex);
+}
+
+void ft_cross_check_cell6(int *cells, int index)
+{
+	int startingindex;
+
+	startingindex = index - 3;
+	ft_cc_second_columns(cells, startingindex);
+	ft_cc_second_lines(cells, startingindex);
+}
+
+void ft_cc_first_columns(int *cells, int startingindex)
+{
+	int i;
+	int j;
 	int index;
 
-	index = ft_define_starting_index(reference);
-	if (x == '1')
+	i = 1;
+	// 3 columns to the right
+	while (i < 4)
 	{
-		// Chamar arquivo das possibilidades 1-x
-		if (y == '1')
+		j = 0;
+		index = startingindex;
+		while (j < 4)
 		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
+			if (ft_cell_not_solved(cells, cells[index + (i * 4)] - j))
+				break ;
+			else if (cells[index + (i * 4)] != 0)
+				cells[index] = 0;
+			index++;
+			j++;
 		}
-		else if (y == '2')
-		{
-			cells[index] = 0;
-			cells[index + 1] = 0;
-			cells[index + 2] = 0;
-			if (cells[index + 3] != 0)
-				cells[index + 3] = 4;
-
-			if (cells[index + 4] != 0)
-				cells[index + 4] = 1;
-			if (cells[index + 5] != 0)
-				cells[index + 5] = 2;
-			cells[index + 6] = 0;
-			cells[index + 7] = 0;
-
-			if (cells[index + 8] != 0)
-				cells[index + 8] = 1;
-			if (cells[index + 9] != 0)
-				cells[index + 9] = 2;
-			cells[index + 10] = 0;
-			cells[index + 11] = 0;
-
-			cells[index + 12] = 0;
-			cells[index + 13] = 0;
-			if (cells[index + 14] != 0)
-				cells[index + 14] = 3;
-			cells[index + 15] = 0;
-		}
-		else if (y == '3')
-		{
-			cells[index] = 0;
-			cells[index + 1] = 0;
-			cells[index + 2] = 0;
-			if (cells[index + 3] != 0)
-				cells[index + 3] = 4;
-
-			if (cells[index + 4] != 0)
-				cells[index + 4] = 1;
-			if (cells[index + 5] != 0)
-				cells[index + 5] = 2;
-			if (cells[index + 6] != 0)
-				cells[index + 6] = 3;
-			cells[index + 7] = 0;
-
-			if (cells[index + 8] != 0)
-				cells[index + 8] = 1;
-			cells[index + 9] = 0;
-			if (cells[index + 10] != 0)
-				cells[index + 10] = 3;
-			cells[index + 11] = 0;
-
-			if (cells[index + 12] != 0)
-				cells[index + 12] = 1;
-			if (cells[index + 13] != 0)
-				cells[index + 13] = 2;
-			cells[index + 14] = 0;
-			cells[index + 15] = 0;
-		}
-		else if (y == '4')
-		{
-			cells[index] = 0;
-			cells[index + 1] = 0;
-			cells[index + 2] = 0;
-			if (cells[index + 3] != 0)
-			cells[index + 3] = 4;
-
-			cells[index + 4] = 0;
-			cells[index + 5] = 0;
-			if (cells[index + 6] != 0)
-				cells[index + 6] = 3;
-			cells[index + 7] = 0;
-
-			cells[index + 8] = 0;
-			if (cells[index + 9] != 0)
-				cells[index + 9] = 2;
-			cells[index + 10] = 0;
-			cells[index + 11] = 0;
-
-			if (cells[index + 12] != 0)
-				cells[index + 12] = 1;
-			cells[index + 13] = 0;
-			cells[index + 14] = 0;
-			cells[index + 15] = 0;
-		}
+		i++;
 	}
-	else if (x == '2')
+}
+
+void ft_cc_second_columns(int *cells, int startingindex)
+{
+	int i;
+	int j;
+	int index;
+
+	i = 1;
+	// 3 columns to the right
+	while (i < 4)
 	{
-		// Chamar arquivo das possibilidades 2-x
-		if (y == '1')
+		j = 0;
+		index = startingindex;
+		while (j < 4)
 		{
-			// Matrix x, 1
-			cells[index] = 0;
-			cells[index + 1] = 0;
-			cells[index + 2] = 3;
-			cells[index + 3] = 0;
-
-			// Matrix x, 2
-			cells[index + 4] = 1;
-			cells[index + 5] = 2;
-			cells[index + 6] = 0;
-			cells[index + 7] = 0;
-
-			// Matrix x, 3
-			cells[index + 8] = 1;
-			cells[index + 9] = 2;
-			cells[index + 10] = 0;
-			cells[index + 11] = 0;
-
-			// Matrix x, 4
-			cells[index + 12] = 0;
-			cells[index + 13] = 0;
-			cells[index + 14] = 0;
-			cells[index + 15] = 4;
+			if (i == 1)
+				i *= -1;
+			if (ft_cell_not_solved(cells, cells[index + (i * 4)] - j))
+				break ;
+			else if (cells[index + (i * 4)] != 0)
+				cells[index] = 0;
+			if (i < 0)
+				i *= -1;
+			index++;
+			j++;
 		}
-		else if (y == '2')
-		{
-			// Matrix x, 1
-			cells[index] = 1;
-			cells[index + 1] = 2;
-			cells[index + 2] = 3;
-			cells[index + 3] = 0;
-
-			// Matrix x, 2
-			cells[index + 4] = 1;
-			cells[index + 5] = 2;
-			cells[index + 6] = 0;
-			cells[index + 7] = 4;
-
-			// Matrix x, 3
-			cells[index + 8] = 1;
-			cells[index + 9] = 2;
-			cells[index + 10] = 0;
-			cells[index + 11] = 4;
-
-			// Matrix x, 4
-			cells[index + 12] = 1;
-			cells[index + 13] = 2;
-			cells[index + 14] = 3;
-			cells[index + 15] = 0;
-		}
-		else if (y == '3')
-		{
-			// Matrix 1, 1
-			cells[index] = 1;
-			cells[index + 1] = 2;
-			cells[index + 2] = 3;
-			cells[index + 3] = 0;
-
-			// Matrix 1, 2
-			cells[index + 4] = 0;
-			cells[index + 5] = 0;
-			cells[index + 6] = 0;
-			cells[index + 7] = 4;
-
-			// Matrix 1, 3
-			cells[index + 8] = 0;
-			cells[index + 9] = 2;
-			cells[index + 10] = 3;
-			cells[index + 11] = 0;
-
-			// Matrix 1, 4
-			cells[index + 12] = 1;
-			cells[index + 13] = 2;
-			cells[index + 14] = 0;
-			cells[index + 15] = 0;
-		}
-		else if (y == '4')
-		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
-		}
+		i++;
 	}
-	else if (x == '3')
+}
+
+void ft_cc_third_columns(int *cells, int startingindex)
+{
+	int i;
+	int j;
+	int index;
+
+	i = 1;
+	// 3 columns to the right
+	while (i < 4)
 	{
-		// Chamar arquivo das possibilidades 3-x
-		if (y == '1')
+		j = 0;
+		index = startingindex;
+		while (j < 4)
 		{
-			// Matrix x, 1
-			cells[index] = 1;
-			cells[index + 1] = 2;
-			cells[index + 2] = 0;
-			cells[index + 3] = 0;
-
-			// Matrix x, 2
-			cells[index + 4] = 1;
-			cells[index + 5] = 0;
-			cells[index + 6] = 3;
-			cells[index + 7] = 0;
-
-			// Matrix x, 3
-			cells[index + 8] = 1;
-			cells[index + 9] = 2;
-			cells[index + 10] = 3;
-			cells[index + 11] = 0;
-
-			// Matrix x, 4
-			cells[index + 12] = 0;
-			cells[index + 13] = 0;
-			cells[index + 14] = 0;
-			cells[index + 15] = 4;
+			if (i == 1 || i == 2)
+				i *= -1;
+			if (ft_cell_not_solved(cells, cells[index + (i * 4)] - j))
+				break ;
+			else if (cells[index + (i * 4)] != 0)
+				cells[index] = 0;
+			if (i < 0)
+				i *= -1;
+			index++;
+			j++;
 		}
-		else if (y == '2')
-		{
-			// Matrix x, 1
-			cells[index] = 1;
-			cells[index + 1] = 2;
-			cells[index + 2] = 0;
-			cells[index + 3] = 0;
-
-			// Matrix x, 2
-			cells[index + 4] = 0;
-			cells[index + 5] = 2;
-			cells[index + 6] = 3;
-			cells[index + 7] = 0;
-
-			// Matrix x, 3
-			cells[index + 8] = 0;
-			cells[index + 9] = 0;
-			cells[index + 10] = 0;
-			cells[index + 11] = 4;
-
-			// Matrix x, 4
-			cells[index + 12] = 1;
-			cells[index + 13] = 2;
-			cells[index + 14] = 3;
-			cells[index + 15] = 0;
-		}
-		else if (y == '3')
-		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
-		}
-		else if (y == '4')
-		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
-		}
+		i++;
 	}
-	else if (x == '4')
+}
+
+void ft_cc_fourth_columns(int *cells, int startingindex)
+{
+	int i;
+	int j;
+	int index;
+
+	i = 1;
+	// 3 columns to the right
+	while (i < 4)
 	{
-		// Chamar arquivo das possibilidades 4-x
-		if (y == '1')
+		j = 0;
+		index = startingindex;
+		while (j < 4)
 		{
-			// Matrix x, 1
-			cells[index] = 1;
-			cells[index + 1] = 0;
-			cells[index + 2] = 0;
-			cells[index + 3] = 0;
+			if (i == 1 || i == 2 || i == 3)
+				i *= -1;
+			if (ft_cell_not_solved(cells, cells[index + (i * 4)] - j))
+				break ;
+			else if (cells[index + (i * 4)] != 0)
+				cells[index] = 0;
+			if (i < 0)
+				i *= -1;
+			index++;
+			j++;
+		}
+		i++;
+	}
+}
 
-			// Matrix x, 2
-			cells[index + 4] = 0;
-			cells[index + 5] = 2;
-			cells[index + 6] = 0;
-			cells[index + 7] = 0;
+void ft_cc_first_lines(int *cells, int startingindex)
+{
+	int i;
+	int j;
+	int index;
 
-			// Matrix x, 3
-			cells[index + 8] = 0;
-			cells[index + 9] = 0;
-			cells[index + 10] = 3;
-			cells[index + 11] = 0;
+	// 3 columns to the botom
+	i = 1;
+	while (i < 4)
+	{
+		j = 0;
+		index = startingindex;
+		while (j < 4)
+		{
+			if (ft_cell_not_solved(cells, cells[index + (i * 16)] - j))
+				break ;
+			else if (cells[index + (i * 16)] != 0)
+				cells[index] = 0;
+			index++;
+			j++;
+		}
+		i++;
+	}
+}
 
-			// Matrix x, 4
-			cells[index + 12] = 0;
-			cells[index + 13] = 0;
-			cells[index + 14] = 0;
-			cells[index + 15] = 4;
-		}
-		else if (y == '2')
+void ft_cc_second_lines(int *cells, int startingindex)
+{
+	int i;
+	int j;
+	int index;
+
+	// 3 columns to the botom
+	i = 1;
+	while (i < 4)
+	{
+		j = 0;
+		index = startingindex;
+		while (j < 4)
 		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
+			if (i == 1)
+				i *= -1;
+			if (ft_cell_not_solved(cells, cells[index + (i * 16)] - j))
+				break ;
+			else if (cells[index + (i * 16)] != 0)
+				cells[index] = 0;
+			index++;
+			j++;
+			if (i < 0)
+				i *= -1;
 		}
-		else if (y == '3')
+		i++;
+	}
+}
+
+void ft_cc_third_lines(int *cells, int startingindex)
+{
+	int i;
+	int j;
+	int index;
+
+	// 3 columns to the botom
+	i = 1;
+	while (i < 4)
+	{
+		j = 0;
+		index = startingindex;
+		while (j < 4)
 		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
+			if (i == 1 || i == 2)
+				i *= -1;
+			if (ft_cell_not_solved(cells, cells[index + (i * 16)] - j))
+				break ;
+			else if (cells[index + (i * 16)] != 0)
+				cells[index] = 0;
+			index++;
+			j++;
+			if (i < 0)
+				i *= -1;
 		}
-		else if (y == '4')
+		i++;
+	}
+}
+
+void ft_cc_fourth_lines(int *cells, int startingindex)
+{
+	int i;
+	int j;
+	int index;
+
+	// 3 columns to the botom
+	i = 1;
+	while (i < 4)
+	{
+		j = 0;
+		index = startingindex;
+		while (j < 4)
 		{
-			// Sem possibilidades.
-			// Encerrar o programa com mensagem de erro.
+			if (i == 1 || i == 2 || i == 3)
+				i *= -1;
+			if (ft_cell_not_solved(cells, cells[index + (i * 16)] - j))
+				break ;
+			else if (cells[index + (i * 16)] != 0)
+				cells[index] = 0;
+			index++;
+			j++;
+			if (i < 0)
+				i *= -1;
 		}
+		i++;
 	}
 }

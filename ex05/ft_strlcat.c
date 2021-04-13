@@ -6,7 +6,7 @@
 /*   By: lgoncalv <lgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 19:46:46 by lgoncalv          #+#    #+#             */
-/*   Updated: 2021/04/12 15:50:59 by lgoncalv         ###   ########.fr       */
+/*   Updated: 2021/04/13 19:35:20 by lgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,5 @@ unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
 		dest[destsize + i] = '\0';
 		i++;
 	}
-	dest[destsize + i] = '\0';
 	return (destsize + srcsize);
 }

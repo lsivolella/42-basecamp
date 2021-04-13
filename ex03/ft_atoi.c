@@ -6,7 +6,7 @@
 /*   By: lgoncalv <lgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:47:49 by lgoncalv          #+#    #+#             */
-/*   Updated: 2021/04/13 00:35:55 by lgoncalv         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:29:19 by lgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		ft_atoi(char *str)
 	number = 0;
 	sign = 1;
 	i = 0;
-
 	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
 		i++;
 	while (str[i] == '+' || str[i] == '-')

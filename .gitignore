@@ -1,6 +1,7 @@
 ex00/main.c
 ex00/a.out
 <<<<<<< HEAD
+<<<<<<< HEAD
 ex01/main.c
 ex01/a.out
 ex02/main.c
@@ -36,6 +37,8 @@ ex12/a.out
 codeHistory.c
 >>>>>>> master
 =======
+=======
+>>>>>>> master
 ex00/header.h
 ex01/main.c
 ex01/a.out
@@ -74,4 +77,7 @@ ex12/main.c
 ex12/a.out
 ex12/header.h
 codeHistory.c
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master

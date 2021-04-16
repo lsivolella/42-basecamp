@@ -17,13 +17,20 @@ ex07/a.out
 ex08/main.c
 ex08/a.out
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 ex09/main.c
 ex09/a.out
 ex10/main.c
 ex10/a.out
 ex11/main.c
 ex11/a.out
+<<<<<<< HEAD
 ex12/main.c
 ex12/a.out
+>>>>>>> master
+=======
+codeHistory.c
 >>>>>>> master

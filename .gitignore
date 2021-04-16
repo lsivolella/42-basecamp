@@ -1,5 +1,6 @@
 ex00/main.c
 ex00/a.out
+<<<<<<< HEAD
 ex01/main.c
 ex01/a.out
 ex02/main.c
@@ -32,5 +33,45 @@ ex12/main.c
 ex12/a.out
 >>>>>>> master
 =======
+codeHistory.c
+>>>>>>> master
+=======
+ex00/header.h
+ex01/main.c
+ex01/a.out
+ex01/header.h
+ex02/main.c
+ex02/a.out
+ex02/header.h
+ex03/main.c
+ex03/a.out
+ex03/header.h
+ex04/main.c
+ex04/a.out
+ex04/header.h
+ex05/main.c
+ex05/a.out
+ex05/header.h
+ex06/main.c
+ex06/a.out
+ex06/header.h
+ex07/main.c
+ex07/a.out
+ex07/header.h
+ex08/main.c
+ex08/a.out
+ex08/header.h
+ex09/main.c
+ex09/a.out
+ex09/header.h
+ex10/main.c
+ex10/a.out
+ex10/header.h
+ex11/main.c
+ex11/a.out
+ex11/header.h
+ex12/main.c
+ex12/a.out
+ex12/header.h
 codeHistory.c
 >>>>>>> master
